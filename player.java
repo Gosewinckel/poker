@@ -3,9 +3,8 @@ public class player {
     card[] hand = new card[2];
     // could add money or points
 
-    public player(int playerId, card[] hand) {
+    public player(int playerId) {
         this.playerId = playerId;
-        this.hand = hand;
     }
     public int getPlayerId() {
         return this.playerId;
