@@ -27,7 +27,7 @@ public class poker {
             suitVal.put(i, suits[i]);
         }
     }
-
+    //makes deck
     private void makeDeck() {
         int idx1 = 0;
         int idx2 = 0;
@@ -40,7 +40,7 @@ public class poker {
             idx1++;
         }
     }
-
+    //shuffles deck
     private void shuffleDeck(card[] deck) {
         Random rand = new Random();
         for(int i = deck.length - 1; i > 0; i--) {
@@ -50,8 +50,9 @@ public class poker {
             deck[idx] = x;
         }
     }
-
+    //plays a round of poker
     public void play() {
+        //gives each player 2 cards, 1 at a time
         int deckIdx = 0;
         for(int i = 0; i < 2; i++) {
             for(int j = 0; j < players.length; j++) {
@@ -66,6 +67,7 @@ public class poker {
             System.out.println("you folded");
             return;
         }
+        //deals cards
         card[] shared = new card[5];
         for(int i = 0; i < 3; i++) {
             shared[i] = deck[deckIdx];
@@ -89,9 +91,14 @@ public class poker {
             System.out.println("you folded");
             return;
         }
-        return;
+        //finds each players most valuable hand
+        for(int i = 0; i < players.length; i++) {
+            for(int j = 0; j < shared.length; j++) {
+                this.findHighestHand(shared, players[i]);
+            }
+        }
     }
-
+    //method to check if player wants to fold or continue
     private boolean keepPlaying() {
         Scanner input = new Scanner(System.in);
         System.out.println("Keep playing? y/n");
@@ -108,6 +115,24 @@ public class poker {
                 ans = input.nextLine();
             }
         }
+    }
+    //finds most valuable hand
+    private card[] findHighestHand(card[] all, player priv) {
+        card[] allCards = new card[7];
+        int idx = 0;
+        for(int i = 0; i < priv.hand.length; i++) {
+            allCards[idx] = priv.hand[i];
+            idx++;
+        }
+        for(int i = 0; i < all.length; i++) {
+            allCards[idx] = all[i];
+            idx++;
+        }
+        for(int i = 0; i < allCards.length; i++) {
+            priv.handValue.replace(allCards[i].getNum(), priv.handValue.get(allCards[i].getNum()) + 1);
+            priv.handValue.replace(allCards[i].getSuit(), priv.handValue.get(allCards[i].getSuit()) + 1);
+        }
+        
     }
     
 }
