@@ -36,7 +36,7 @@ public class poker {
                 idx1 = 0;
                 idx2++;
             }
-            this.deck[i] = new card(suits[idx1], nums[idx2]);
+            this.deck[i] = new card(nums[idx2], suits[idx1]);
             idx1++;
         }
     }
@@ -60,7 +60,7 @@ public class poker {
             }
         }
         for(int i = 0; i < 2; i++) {
-            System.out.println(players[0].hand[i]);
+            System.out.println(players[0].hand[i].getNum() + players[0].hand[i].getSuit());
         }
         if(this.keepPlaying() == false) {
             System.out.println("you folded");
@@ -70,21 +70,21 @@ public class poker {
         for(int i = 0; i < 3; i++) {
             shared[i] = deck[deckIdx];
             deckIdx++;
-            System.out.println(shared[i]);
+            System.out.println(shared[i].getNum() + shared[i].getSuit());
         }
         if(this.keepPlaying() == false) {
             System.out.println("you folded");
             return;
         }
         shared[3] = deck[deckIdx];
-        System.out.println(shared[3]);
+        System.out.println(shared[3].getNum() + shared[3].getSuit());
         deckIdx++;
         if(this.keepPlaying() == false) {
             System.out.println("you folded");
             return;
         }
         shared[4] = deck[deckIdx];
-        System.out.println(shared[4]);
+        System.out.println(shared[4].getNum() + shared[4].getSuit());
         if(this.keepPlaying() == false) {
             System.out.println("you folded");
             return;
@@ -97,12 +97,10 @@ public class poker {
         System.out.println("Keep playing? y/n");
         String ans = input.nextLine();
         while(true) {
-            if(ans.equals("y") || ans.equals("yes")) {
-                input.close();
+            if(ans.toLowerCase().equals("y") || ans.toLowerCase().equals("yes")) {
                 return true;
             }
-            if(ans.equals("n") || ans.equals("no")) {
-                input.close();
+            if(ans.toLowerCase().equals("n") || ans.toLowerCase().equals("no")) {
                 return false;
             }
             else {
